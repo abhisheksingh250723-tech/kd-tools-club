@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-DOMAIN.com/sitemap.xml
+Sitemap: https://kd-toolsclub.abhisheksingh-250723.workers.dev/sitemap.xml
