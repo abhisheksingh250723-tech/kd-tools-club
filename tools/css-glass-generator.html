@@ -1,1 +1,437 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CSS Glassmorphism & UI Shadow Generator — KD-ToolsClub</title><link rel="stylesheet" href="../assets/css/style.css"></head><body><header class="site-header"><div class="container nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">KD</span><span>ToolsClub</span></a><button class="menu-toggle">☰</button><nav class="main-nav"><a href="../index.html">Home</a><a class="active" href="../tools.html">Tools</a><a href="../kits.html">Kits</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav></div></header><main><section class="page-hero"><div class="container"><span class="eyebrow">FREE DEVELOPER TOOL</span><h1>CSS Glassmorphism & UI Shadow Generator</h1><p>Adjust the controls, preview the effect and copy the CSS.</p></div></section><section class="section"><div class="container generator-grid"><div class="tool-panel controls"><h2>Controls</h2><label>Blur <output id="bv">16px</output><input id="blur" type="range" min="0" max="40" value="16"></label><label>Glass opacity <output id="ov">0.35</output><input id="opacity" type="range" min=".05" max=".8" step=".05" value=".35"></label><label>Border opacity <output id="brv">0.25</output><input id="border" type="range" min="0" max=".8" step=".05" value=".25"></label><label>Shadow Y <output id="yv">20px</output><input id="sy" type="range" min="0" max="50" value="20"></label><label>Shadow blur <output id="sbv">40px</output><input id="sb" type="range" min="0" max="80" value="40"></label><label>Shadow opacity <output id="sov">0.18</output><input id="so" type="range" min="0" max=".5" step=".01" value=".18"></label><button class="btn btn-primary" id="copycss">Copy CSS</button><p id="cssstatus" class="tool-status"></p></div><div><div class="glass-stage"><div class="glass-preview" id="card"><span class="tool-tag">PREVIEW</span><h2>Glass UI Card</h2><p>Your effect updates live.</p><button class="demo-button">Explore</button></div></div><div class="code-panel"><pre><code id="code"></code></pre></div></div></div></section><section class="section muted"><div class="container cta"><span class="eyebrow">MATCHING $1 KIT</span><h2>Build the rest of the landing page faster.</h2><p>Get copy-paste Tailwind/HTML components, button styles and color palettes.</p><a class="btn btn-primary" href="../kits/ui-ux-component-vault.html">View the Component Vault</a></div></section></main><footer class="site-footer"><div class="container footer-bottom">© <span data-year></span> KD-ToolsClub.</div></footer><script src="../assets/js/app.js"></script><script>const ids=['blur','opacity','border','sy','sb','so'];function u(){let b=+blur.value,o=+opacity.value,br=+border.value,y=+sy.value,sh=+sb.value,so=+document.getElementById('so').value;bv.textContent=b+'px';ov.textContent=o;brv.textContent=br;yv.textContent=y+'px';sbv.textContent=sh+'px';sov.textContent=so;card.style.backdropFilter=`blur(${b}px)`;card.style.background=`rgba(255,255,255,${o})`;card.style.borderColor=`rgba(255,255,255,${br})`;card.style.boxShadow=`0 ${y}px ${sh}px rgba(0,0,0,${so})`;code.textContent=`.glass-card {\n  background: rgba(255,255,255,${o});\n  backdrop-filter: blur(${b}px);\n  -webkit-backdrop-filter: blur(${b}px);\n  border: 1px solid rgba(255,255,255,${br});\n  box-shadow: 0 ${y}px ${sh}px rgba(0,0,0,${so});\n}`};ids.forEach(x=>document.getElementById(x).addEventListener('input',u));u();copycss.onclick=async()=>{await navigator.clipboard.writeText(code.textContent);cssstatus.textContent='CSS copied.'}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS Glassmorphism & UI Shadow Generator — KD-ToolsClub</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* Tool-specific styles that work with your existing design system */
+    .glass-preview-area {
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .glass-preview-area.dark {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    }
+    .glass-preview-area.light {
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #f8fafc 100%);
+    }
+    .glass-card {
+      width: min(280px, 80%);
+      padding: 28px 24px;
+      text-align: center;
+      color: #fff;
+      transition: all 0.15s ease;
+    }
+    .glass-preview-area.light .glass-card {
+      color: #0f172a;
+    }
+    .glass-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .glass-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      line-height: 1.45;
+    }
+    .control-group {
+      margin-bottom: 18px;
+    }
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: inherit;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .control-group label span.value {
+      font-weight: 500;
+      opacity: 0.75;
+      font-variant-numeric: tabular-nums;
+    }
+    .control-group input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(128,128,128,0.25);
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+    .control-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent, #5b8def);
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .control-group input[type="color"] {
+      width: 36px;
+      height: 28px;
+      padding: 0;
+      border: 1px solid rgba(128,128,128,0.35);
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+    }
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .color-row input[type="range"] {
+      flex: 1;
+    }
+    .preview-toggles {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .preview-toggles button {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+    .code-box {
+      width: 100%;
+      min-height: 160px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      padding: 14px;
+      border-radius: 8px;
+      resize: vertical;
+      border: 1px solid rgba(128,128,128,0.25);
+      background: rgba(0,0,0,0.15);
+      color: inherit;
+    }
+    .code-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">KD</span>
+        <span>ToolsClub</span>
+      </a>
+      <button class="menu-toggle">☰</button>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a class="active" href="../tools.html">Tools</a>
+        <a href="../kits.html">Kits</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">FREE DESIGNER TOOL</span>
+        <h1>CSS Glassmorphism & UI Shadow Generator</h1>
+        <p>Move the sliders, see the glass effect live, and copy clean CSS in one click.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container tool-workspace">
+
+        <!-- LEFT: Controls -->
+        <div class="tool-panel">
+          <div class="panel-head">
+            <h2>Controls</h2>
+            <button class="small-button" id="resetBtn">Reset</button>
+          </div>
+
+          <div class="control-group">
+            <label>Blur <span class="value" id="blurVal">12px</span></label>
+            <input type="range" id="blur" min="0" max="40" value="12">
+          </div>
+
+          <div class="control-group">
+            <label>Background Opacity <span class="value" id="bgOpacityVal">15%</span></label>
+            <input type="range" id="bgOpacity" min="0" max="80" value="15">
+          </div>
+
+          <div class="control-group">
+            <label>Background Color</label>
+            <div class="color-row">
+              <input type="color" id="bgColor" value="#ffffff">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Border Radius <span class="value" id="radiusVal">16px</span></label>
+            <input type="range" id="radius" min="0" max="40" value="16">
+          </div>
+
+          <div class="control-group">
+            <label>Border Opacity <span class="value" id="borderOpacityVal">20%</span></label>
+            <input type="range" id="borderOpacity" min="0" max="100" value="20">
+          </div>
+
+          <div class="control-group">
+            <label>Border Width <span class="value" id="borderWidthVal">1px</span></label>
+            <input type="range" id="borderWidth" min="0" max="6" value="1">
+          </div>
+
+          <hr style="border: none; border-top: 1px solid rgba(128,128,128,0.2); margin: 20px 0;">
+
+          <div class="control-group">
+            <label>Shadow Offset X <span class="value" id="shadowXVal">0px</span></label>
+            <input type="range" id="shadowX" min="-40" max="40" value="0">
+          </div>
+
+          <div class="control-group">
+            <label>Shadow Offset Y <span class="value" id="shadowYVal">8px</span></label>
+            <input type="range" id="shadowY" min="-40" max="40" value="8">
+          </div>
+
+          <div class="control-group">
+            <label>Shadow Blur <span class="value" id="shadowBlurVal">32px</span></label>
+            <input type="range" id="shadowBlur" min="0" max="80" value="32">
+          </div>
+
+          <div class="control-group">
+            <label>Shadow Spread <span class="value" id="shadowSpreadVal">0px</span></label>
+            <input type="range" id="shadowSpread" min="-20" max="40" value="0">
+          </div>
+
+          <div class="control-group">
+            <label>Shadow Opacity <span class="value" id="shadowOpacityVal">25%</span></label>
+            <input type="range" id="shadowOpacity" min="0" max="100" value="25">
+          </div>
+
+          <div class="control-group">
+            <label>Shadow Color</label>
+            <div class="color-row">
+              <input type="color" id="shadowColor" value="#000000">
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Preview + Code -->
+        <div class="tool-panel">
+          <div class="panel-head">
+            <h2>Live Preview</h2>
+            <div class="preview-toggles">
+              <button class="small-button" id="bgDark" type="button">Dark BG</button>
+              <button class="small-button" id="bgLight" type="button">Light BG</button>
+            </div>
+          </div>
+
+          <div class="glass-preview-area dark" id="previewArea">
+            <div class="glass-card" id="glassCard">
+              <h3>Glass Card</h3>
+              <p>Move the sliders to design your glassmorphism effect. The CSS updates live.</p>
+            </div>
+          </div>
+
+          <div class="panel-head" style="margin-top: 24px;">
+            <h2>Generated CSS</h2>
+          </div>
+
+          <textarea id="cssOutput" class="code-box" readonly></textarea>
+
+          <div class="code-actions">
+            <button class="btn btn-primary" id="copyBtn">Copy CSS</button>
+            <button class="small-button" id="copyTailwind">Copy Tailwind-ish</button>
+          </div>
+
+          <p id="status" class="tool-status"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container cta">
+        <span class="eyebrow">MATCHING $1 KIT</span>
+        <h2>Need more ready-made UI effects?</h2>
+        <p>Glass cards, soft shadows, neumorphism and modern button styles — all copy-paste ready.</p>
+        <a class="btn btn-primary" href="../kits.html">Browse UI Kits</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      © <span data-year></span> KD-ToolsClub.
+    </div>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    (function () {
+      const blurEl = document.getElementById('blur');
+      const bgOpacityEl = document.getElementById('bgOpacity');
+      const bgColorEl = document.getElementById('bgColor');
+      const radiusEl = document.getElementById('radius');
+      const borderOpacityEl = document.getElementById('borderOpacity');
+      const borderWidthEl = document.getElementById('borderWidth');
+      const shadowXEl = document.getElementById('shadowX');
+      const shadowYEl = document.getElementById('shadowY');
+      const shadowBlurEl = document.getElementById('shadowBlur');
+      const shadowSpreadEl = document.getElementById('shadowSpread');
+      const shadowOpacityEl = document.getElementById('shadowOpacity');
+      const shadowColorEl = document.getElementById('shadowColor');
+
+      const glassCard = document.getElementById('glassCard');
+      const previewArea = document.getElementById('previewArea');
+      const cssOutput = document.getElementById('cssOutput');
+      const status = document.getElementById('status');
+
+      const labels = {
+        blur: document.getElementById('blurVal'),
+        bgOpacity: document.getElementById('bgOpacityVal'),
+        radius: document.getElementById('radiusVal'),
+        borderOpacity: document.getElementById('borderOpacityVal'),
+        borderWidth: document.getElementById('borderWidthVal'),
+        shadowX: document.getElementById('shadowXVal'),
+        shadowY: document.getElementById('shadowYVal'),
+        shadowBlur: document.getElementById('shadowBlurVal'),
+        shadowSpread: document.getElementById('shadowSpreadVal'),
+        shadowOpacity: document.getElementById('shadowOpacityVal')
+      };
+
+      function hexToRgb(hex) {
+        const h = hex.replace('#', '');
+        return {
+          r: parseInt(h.substring(0, 2), 16),
+          g: parseInt(h.substring(2, 4), 16),
+          b: parseInt(h.substring(4, 6), 16)
+        };
+      }
+
+      function update() {
+        const blur = +blurEl.value;
+        const bgOpacity = +bgOpacityEl.value;
+        const bgColor = bgColorEl.value;
+        const radius = +radiusEl.value;
+        const borderOpacity = +borderOpacityEl.value;
+        const borderWidth = +borderWidthEl.value;
+        const shadowX = +shadowXEl.value;
+        const shadowY = +shadowYEl.value;
+        const shadowBlur = +shadowBlurEl.value;
+        const shadowSpread = +shadowSpreadEl.value;
+        const shadowOpacity = +shadowOpacityEl.value;
+        const shadowColor = shadowColorEl.value;
+
+        labels.blur.textContent = blur + 'px';
+        labels.bgOpacity.textContent = bgOpacity + '%';
+        labels.radius.textContent = radius + 'px';
+        labels.borderOpacity.textContent = borderOpacity + '%';
+        labels.borderWidth.textContent = borderWidth + 'px';
+        labels.shadowX.textContent = shadowX + 'px';
+        labels.shadowY.textContent = shadowY + 'px';
+        labels.shadowBlur.textContent = shadowBlur + 'px';
+        labels.shadowSpread.textContent = shadowSpread + 'px';
+        labels.shadowOpacity.textContent = shadowOpacity + '%';
+
+        const bg = hexToRgb(bgColor);
+        const bgRgba = `rgba(${bg.r}, ${bg.g}, ${bg.b}, ${(bgOpacity / 100).toFixed(2)})`;
+        const borderRgba = `rgba(255, 255, 255, ${(borderOpacity / 100).toFixed(2)})`;
+        const sh = hexToRgb(shadowColor);
+        const shadowRgba = `rgba(${sh.r}, ${sh.g}, ${sh.b}, ${(shadowOpacity / 100).toFixed(2)})`;
+
+        glassCard.style.background = bgRgba;
+        glassCard.style.backdropFilter = `blur(${blur}px)`;
+        glassCard.style.webkitBackdropFilter = `blur(${blur}px)`;
+        glassCard.style.borderRadius = radius + 'px';
+        glassCard.style.border = `${borderWidth}px solid ${borderRgba}`;
+        glassCard.style.boxShadow = `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowRgba}`;
+
+        cssOutput.value = `.glass-card {
+  background: ${bgRgba};
+  backdrop-filter: blur(${blur}px);
+  -webkit-backdrop-filter: blur(${blur}px);
+  border-radius: ${radius}px;
+  border: ${borderWidth}px solid ${borderRgba};
+  box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowRgba};
+}`;
+      }
+
+      [
+        blurEl, bgOpacityEl, bgColorEl, radiusEl, borderOpacityEl, borderWidthEl,
+        shadowXEl, shadowYEl, shadowBlurEl, shadowSpreadEl, shadowOpacityEl, shadowColorEl
+      ].forEach(el => el.addEventListener('input', update));
+
+      document.getElementById('bgDark').addEventListener('click', () => {
+        previewArea.classList.remove('light');
+        previewArea.classList.add('dark');
+      });
+      document.getElementById('bgLight').addEventListener('click', () => {
+        previewArea.classList.remove('dark');
+        previewArea.classList.add('light');
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        blurEl.value = 12;
+        bgOpacityEl.value = 15;
+        bgColorEl.value = '#ffffff';
+        radiusEl.value = 16;
+        borderOpacityEl.value = 20;
+        borderWidthEl.value = 1;
+        shadowXEl.value = 0;
+        shadowYEl.value = 8;
+        shadowBlurEl.value = 32;
+        shadowSpreadEl.value = 0;
+        shadowOpacityEl.value = 25;
+        shadowColorEl.value = '#000000';
+        update();
+        status.textContent = 'Reset to defaults.';
+      });
+
+      document.getElementById('copyBtn').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(cssOutput.value);
+          status.textContent = 'CSS copied to clipboard.';
+        } catch (e) {
+          cssOutput.select();
+          document.execCommand('copy');
+          status.textContent = 'CSS copied to clipboard.';
+        }
+      });
+
+      document.getElementById('copyTailwind').addEventListener('click', async () => {
+        const tw = `/* Approximate Tailwind-style utilities */\n` +
+          `backdrop-blur-[${blurEl.value}px] bg-white/${bgOpacityEl.value} rounded-[${radiusEl.value}px] ` +
+          `border border-white/${borderOpacityEl.value} shadow-[${shadowXEl.value}px_${shadowYEl.value}px_${shadowBlurEl.value}px_${shadowSpreadEl.value}px_rgba(0,0,0,${(shadowOpacityEl.value/100).toFixed(2)})]`;
+        try {
+          await navigator.clipboard.writeText(tw);
+          status.textContent = 'Tailwind-style snippet copied.';
+        } catch (e) {
+          status.textContent = 'Could not copy. Select and copy manually.';
+        }
+      });
+
+      update();
+    })();
+  </script>
+</body>
+</html>
