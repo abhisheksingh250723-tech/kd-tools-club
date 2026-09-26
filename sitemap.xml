@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://YOUR-DOMAIN.com/</loc></url><url><loc>https://YOUR-DOMAIN.com/tools.html</loc></url><url><loc>https://YOUR-DOMAIN.com/kits.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/transcript-cleaner.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/css-glass-generator.html</loc></url><url><loc>https://YOUR-DOMAIN.com/kits/podcast-youtube-repurposing.html</loc></url><url><loc>https://YOUR-DOMAIN.com/kits/ui-ux-component-vault.html</loc></url><url><loc>https://YOUR-DOMAIN.com/about.html</loc></url><url><loc>https://YOUR-DOMAIN.com/contact.html</loc></url><url><loc>https://YOUR-DOMAIN.com/privacy.html</loc></url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/tools.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/kits.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/about.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/contact.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/privacy.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/tools/transcript-cleaner.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/tools/css-glass-generator.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/kits/podcast-youtube-repurposing.html</loc>
+  </url>
+
+  <url>
+    <loc>https://kd-toolsclub.abhisheksingh-250723.workers.dev/kits/ui-ux-component-vault.html</loc>
+  </url>
+
 </urlset>
