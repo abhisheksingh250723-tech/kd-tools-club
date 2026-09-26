@@ -1,351 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clean Transcript & Timestamp Stripper</title>
-  <meta name="description" content="Paste messy YouTube or podcast transcripts. One click removes timestamps, speaker labels, and broken lines — leaves clean readable text." />
-  <style>
-    :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface-2: #242836;
-      --border: #2e3345;
-      --text: #e8eaed;
-      --text-muted: #9aa0b0;
-      --accent: #5b8def;
-      --accent-hover: #4a7de0;
-      --success: #3ecf8e;
-      --radius: 10px;
-      --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.5;
-      padding: 24px 16px 48px;
-    }
-
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-
-    header p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 220px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.9rem;
-      line-height: 1.55;
-      padding: 14px 16px;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    textarea:focus {
-      border-color: var(--accent);
-    }
-
-    textarea::placeholder {
-      color: #5a6070;
-    }
-
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px 24px;
-      margin: 16px 0 20px;
-      align-items: center;
-    }
-
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      user-select: none;
-      font-size: 0.9rem;
-    }
-
-    .option input {
-      width: 16px;
-      height: 16px;
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    button {
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      padding: 11px 20px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    button:active { transform: scale(0.98); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--accent-hover); }
-
-    .btn-secondary {
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover { background: #2c3040; }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid transparent;
-    }
-    .btn-ghost:hover { color: var(--text); border-color: var(--border); }
-
-    .stats {
-      display: flex;
-      gap: 16px;
-      margin-top: 12px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .output-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .output-header label { margin-bottom: 0; }
-
-    .copy-feedback {
-      font-size: 0.8rem;
-      color: var(--success);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .copy-feedback.show { opacity: 1; }
-
-    #output {
-      min-height: 180px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.4rem; }
-      .actions { flex-direction: column; }
-      button { width: 100%; }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clean Transcript & Timestamp Stripper — KD-ToolsClub</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Clean Transcript &amp; Timestamp Stripper</h1>
-      <p>Paste any messy YouTube or podcast transcript. One click removes timestamps, speaker labels, and broken lines — leaves clean, readable text ready for show notes or articles.</p>
-    </header>
-
-    <div class="card">
-      <label for="input">Paste messy transcript</label>
-      <textarea id="input" placeholder="Example:
-00:00 Speaker 1: Welcome back to the show.
-00:12 John: Today we're talking about...
-[01:05] Jane Doe: The key insight is...
-
-Or any auto-generated YouTube / Descript / Otter / Riverside transcript."></textarea>
-
-      <div class="options">
-        <label class="option">
-          <input type="checkbox" id="stripTimestamps" checked />
-          Strip timestamps
-        </label>
-        <label class="option">
-          <input type="checkbox" id="stripSpeakers" checked />
-          Strip speaker names
-        </label>
-        <label class="option">
-          <input type="checkbox" id="joinLines" checked />
-          Join into smooth paragraphs
-        </label>
-        <label class="option">
-          <input type="checkbox" id="preserveParagraphs" />
-          Keep paragraph breaks (double newlines)
-        </label>
-      </div>
-
-      <div class="actions">
-        <button class="btn-primary" id="cleanBtn">Clean Transcript</button>
-        <button class="btn-secondary" id="clearBtn">Clear</button>
-        <button class="btn-ghost" id="sampleBtn">Load sample</button>
-      </div>
-
-      <div class="stats" id="inputStats"></div>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">KD</span>
+        <span>ToolsClub</span>
+      </a>
+      <button class="menu-toggle">☰</button>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a class="active" href="../tools.html">Tools</a>
+        <a href="../kits.html">Kits</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="card" id="outputCard" style="display:none;">
-      <div class="output-header">
-        <label for="output">Cleaned text</label>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <span class="copy-feedback" id="copyFeedback">Copied!</span>
-          <button class="btn-secondary" id="copyBtn" style="padding:7px 14px;font-size:0.85rem;">Copy to clipboard</button>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">FREE CREATOR TOOL</span>
+        <h1>Clean Transcript & Timestamp Stripper</h1>
+        <p>Paste a messy YouTube or podcast transcript and turn it into clean, readable text.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container tool-workspace">
+
+        <!-- LEFT PANEL -->
+        <div class="tool-panel">
+          <div class="panel-head">
+            <h2>Paste transcript</h2>
+            <button class="small-button" id="sample">Sample</button>
+          </div>
+
+          <textarea id="input" rows="18" placeholder="Paste your messy YouTube / podcast transcript here..."></textarea>
+
+          <div class="tool-options">
+            <label><input id="timestamps" type="checkbox" checked> Strip timestamps</label>
+            <label><input id="speakers" type="checkbox" checked> Remove speaker labels</label>
+            <label><input id="join" type="checkbox" checked> Join broken lines</label>
+          </div>
+
+          <button class="btn btn-primary" id="clean">Clean Transcript</button>
         </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="tool-panel">
+          <div class="panel-head">
+            <h2>Clean result</h2>
+            <button class="small-button" id="copy">Copy</button>
+          </div>
+
+          <textarea id="output" rows="18" readonly></textarea>
+          <p id="status" class="tool-status"></p>
+        </div>
+
       </div>
-      <textarea id="output" readonly></textarea>
-      <div class="stats" id="outputStats"></div>
+    </section>
+
+    <section class="section muted">
+      <div class="container cta">
+        <span class="eyebrow">MATCHING $1 KIT</span>
+        <h2>Turn one transcript into 30+ content opportunities.</h2>
+        <p>Get Notion templates, show notes, descriptions and a swipe file of hooks.</p>
+        <a class="btn btn-primary" href="../kits/podcast-youtube-repurposing.html">View the Repurposing Kit</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      © <span data-year></span> KD-ToolsClub.
     </div>
+  </footer>
 
-    <footer>
-      Free · Runs entirely in your browser · No data leaves your device
-    </footer>
-  </div>
-
+  <script src="../assets/js/app.js"></script>
   <script>
-    function cleanTranscript(raw, opts) {
-      if (!raw || !raw.trim()) return "";
+    (function () {
+      const input   = document.getElementById('input');
+      const output  = document.getElementById('output');
+      const status  = document.getElementById('status');
+      const cleanBtn = document.getElementById('clean');
+      const sampleBtn = document.getElementById('sample');
+      const copyBtn  = document.getElementById('copy');
 
-      let text = raw;
+      function cleanTranscript(raw) {
+        if (!raw || !raw.trim()) return '';
 
-      // Normalize line endings
-      text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+        let text = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-      // 1. Strip timestamps
-      if (opts.stripTimestamps) {
-        // Bracketed / parenthesized timestamps  [00:00]  (1:23)
-        text = text.replace(/[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s*[\]\)]/g, " ");
-        // Leading timestamps on a line
-        text = text.replace(/(^|\n)\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s+/gm, "$1");
-        // Inline timestamps
-        text = text.replace(/\s+\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s+/g, " ");
-        // Pure time codes alone on a line
-        text = text.replace(/^\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s*$/gm, "");
-      }
-
-      // 2. Strip speaker labels
-      if (opts.stripSpeakers) {
-        // "Name:" or "Name -" at start of line
-        text = text.replace(/(^|\n)\s*(?:>>\s*)?[A-Za-z0-9][A-Za-z0-9 .'\-]{0,40}?\s*[:\-–—]\s+/gm, "$1");
-        // Common auto labels
-        text = text.replace(/(^|\n)\s*(?:Speaker|Host|Guest|Interviewer|Narrator)\s*\d*\s*[:\-–—]\s*/gim, "$1");
-      }
-
-      // 3. Clean leftover artifacts
-      text = text.replace(/\n{3,}/g, "\n\n");
-      text = text.replace(/[ \t]+/g, " ");
-      text = text.split("\n").map(l => l.trim()).join("\n");
-
-      // 4. Join lines
-      if (opts.joinLines) {
-        if (opts.preserveParagraphs) {
-          text = text
-            .split(/\n{2,}/)
-            .map(para => para.replace(/\n+/g, " ").replace(/\s+/g, " ").trim())
-            .filter(Boolean)
-            .join("\n\n");
-        } else {
-          text = text.replace(/\n+/g, " ").replace(/\s+/g, " ").trim();
+        // 1. Strip timestamps
+        if (document.getElementById('timestamps').checked) {
+          // [00:00] or (1:23) or [00:00:00]
+          text = text.replace(/[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s*[\]\)]/g, ' ');
+          // Leading timestamps on a line
+          text = text.replace(/(^|\n)\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s+/gm, '$1');
+          // Inline timestamps
+          text = text.replace(/\s+\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s+/g, ' ');
+          // Timestamp alone on a line
+          text = text.replace(/^\s*\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s*$/gm, '');
         }
-      } else {
-        text = text.replace(/[ \t]+/g, " ").trim();
+
+        // 2. Strip speaker labels
+        if (document.getElementById('speakers').checked) {
+          // "John:", "Speaker 1:", "HOST -", ">> Name", etc.
+          text = text.replace(/(^|\n)\s*(?:>>\s*)?[A-Za-z0-9][A-Za-z0-9 .'\-]{0,40}?\s*[:\-–—]\s+/gm, '$1');
+          text = text.replace(/(^|\n)\s*(?:Speaker|Host|Guest|Interviewer|Narrator)\s*\d*\s*[:\-–—]\s*/gim, '$1');
+        }
+
+        // 3. Clean up
+        text = text.replace(/\n{3,}/g, '\n\n');
+        text = text.replace(/[ \t]+/g, ' ');
+        text = text.split('\n').map(l => l.trim()).join('\n');
+
+        // 4. Join broken lines
+        if (document.getElementById('join').checked) {
+          text = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+        }
+
+        // Final polish
+        text = text.replace(/ +([.,!?;:])/g, '$1');
+        text = text.replace(/([.!?])\s*([A-Z])/g, '$1 $2');
+
+        return text.trim();
       }
 
-      // Final tidy
-      text = text.replace(/ +([.,!?;:])/g, "$1");
-      text = text.replace(/([.!?])\s*([A-Z])/g, "$1 $2");
+      // Clean button
+      cleanBtn.addEventListener('click', function () {
+        const cleaned = cleanTranscript(input.value);
+        output.value = cleaned;
+        status.textContent = cleaned
+          ? 'Cleaned successfully.'
+          : 'Paste some text first.';
+      });
 
-      return text.trim();
-    }
+      // Sample button
+      sampleBtn.addEventListener('click', function () {
+        input.value = `00:00 Speaker 1: Welcome back to the show everybody.
+00:08 John Smith: Today we're diving deep into how creators can save hours every week.
+[00:22] Jane: The biggest time sink is cleaning up auto-generated transcripts.
+00:35 Speaker 2: Exactly. Timestamps everywhere, random line breaks, speaker labels...
+01:02 John Smith: And then you still have to turn it into readable show notes or a blog post.
+01:18 Jane: So we built a tiny tool that does it in one click.
+01:29 Speaker 1: No AI needed. Just pure text cleaning. Fast and private.
+01:45 John: Paste anything from YouTube, Descript, Otter, Riverside — it just works.`;
+        status.textContent = 'Sample loaded. Click Clean Transcript.';
+      });
 
-    // ---------- UI ----------
-    const inputEl = document.getElementById("input");
-    const outputEl = document.getElementById("output");
-    const outputCard = document.getElementById("outputCard");
-    const cleanBtn = document.getElementById("cleanBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const sampleBtn = document.getElementById("sampleBtn");
-    const copyBtn = document.getElementById("copyBtn");
-    const copyFeedback = document.getElementById("copyFeedback");
-    const inputStats = document.getElementById("inputStats");
-    const outputStats = document.getElementById("outputStats");
-
-    function getOpts() {
-      return {
-        stripTimestamps: document.getElementById("stripTimestamps").checked,
-        stripSpeakers: document.getElementById("stripSpeakers").checked,
-        joinLines: document.getElementById("joinLines").checked,
-        preserveParagraphs: document.getElementById("preserveParagraphs").checked,
-      };
-    }
-
-    function updateStats(el, text, label) {
-      if (!text) {
-        el.textContent = "";
-        return;
-      }
-      const 
+      // Copy button
+      copyBtn.addEventListener('click', async function () {
+        if (!output.value) {
+          status.textContent = 'Nothing to copy yet.';
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(output.value);
+          status.textContent = 'Copied to clipboard.';
+        } catch (e) {
+          output.select();
+          document.execCommand('copy');
+          status.textContent = 'Copied to clipboard.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
