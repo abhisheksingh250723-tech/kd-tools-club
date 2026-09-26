@@ -49,6 +49,28 @@
       opacity: 0.8;
       line-height: 1.5;
     }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      aspect-ratio: 16 / 10;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
     .who-list {
       list-style: none;
       padding: 0;
@@ -141,6 +163,31 @@
           <div class="feature-card">
             <h3>Show-Notes Boilerplates</h3>
             <p>Clean templates that turn raw transcripts into professional blog posts and newsletter content.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE GALLERY -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Inside the Kit</h2>
+        <p style="opacity: 0.8; margin-bottom: 28px; max-width: 520px;">
+          A quick look at the templates, trackers, and swipe files you’ll get instantly.
+        </p>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="../assets/images/repurposing-1.jpg" alt="Notion Content Tracker" loading="lazy">
+          </div>
+          <div class="gallery-item">
+            <img src="../assets/images/repurposing-2.jpg" alt="Viral Hook Templates" loading="lazy">
+          </div>
+          <div class="gallery-item">
+            <img src="../assets/images/repurposing-3.jpg" alt="30-Day Content Calendar" loading="lazy">
+          </div>
+          <div class="gallery-item">
+            <img src="../assets/images/repurposing-4.jpg" alt="Show Notes Template" loading="lazy">
           </div>
         </div>
       </div>
