@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Stock Screener Trading Filter — KD-ToolsClub</title>
+  <meta name="description" content="21-page practical guide with battle-tested AI prompts to filter high-quality stocks, avoid bad trades, and trade with structure.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Monetag Ads -->
+  <script src="https://quge5.com/88/tag.min.js" data-zone="287318" async data-cfasync="false"></script>
+
+  <style>
+    .price-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: rgba(62, 207, 142, 0.12);
+      color: #3ecf8e;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .price-badge .now {
+      font-size: 1.35rem;
+    }
+
+    .hero-with-slider {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-with-slider {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: 1.05rem;
+      opacity: 0.75;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 480px;
+    }
+
+    .hero-slider {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f1f5f9;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      z-index: 5;
+    }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin: 0 0 8px;
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px;
+      position: relative;
+      opacity: 0.9;
+    }
+    .check-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #3ecf8e;
+      font-weight: 700;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      background: rgba(91, 141, 239, 0.08);
+      border: 1px solid rgba(91, 141, 239, 0.2);
+      margin-top: 12px;
+    }
+    .cta-box .btn {
+      font-size: 1.05rem;
+      padding: 14px 32px;
+    }
+    .guarantee {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 14px;
+    }
+
+    .testimonial {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">KD</span>
+        <span>ToolsClub</span>
+      </a>
+      <button class="menu-toggle">☰</button>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../tools.html">Tools</a>
+        <a class="active" href="../kits.html">Kits</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="hero-with-slider">
+
+          <div class="hero-content">
+            <span class="eyebrow">DIGITAL PRODUCT</span>
+            <div class="price-badge">
+              <span class="now">$19</span>
+            </div>
+            <h1>AI Stock Screener<br>Trading Filter</h1>
+            <p>Avoid bad trades before entry. A 21-page practical guide with battle-tested AI prompts that help you filter high-quality stocks and trade with structure.</p>
+            <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/N46B8WMDF5XUG" target="_blank" rel="noopener">
+              Get Instant Access — $19
+            </a>
+          </div>
+
+          <div class="hero-slider" id="heroSlider">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide">
+                <img src="../assets/images/ai-screener-1.png" alt="AI Stock Screener Guide Cover">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-screener-2.png" alt="AI Prompts Inside">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-screener-3.png" alt="Daily Trading Workflow">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-screener-4.png" alt="Risk Management Prompts">
+              </div>
+            </div>
+            <button class="slider-btn prev" id="prevBtn" aria-label="Previous">‹</button>
+            <button class="slider-btn next" id="nextBtn" aria-label="Next">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 12px;">Most traders don’t lose because they lack indicators</h2>
+        <p style="max-width: 640px; opacity: 0.85; line-height: 1.6; margin-bottom: 20px;">
+          They lose because they chase random stocks, trade against market conditions, enter without clear logic, and overtrade emotionally.
+        </p>
+        <p style="max-width: 640px; opacity: 0.85; line-height: 1.6;">
+          AI can fix this — only if you ask the right questions. This guide gives you the exact prompt system used to turn AI into a stock screener, trade filter, and risk assistant.
+        </p>
+      </div>
+    </section>
+
+    <!-- WHAT'S INCLUDED -->
+    <section class="section muted">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">What’s Included</h2>
+        <p style="opacity: 0.8; margin-bottom: 28px;">Instant digital delivery. No coding. No indicators. No signals.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>21-Page Practical Guide</h3>
+            <p>Clear, actionable PDF that shows you exactly how to use AI for stock screening and trade filtering.</p>
+          </div>
+          <div class="feature-card">
+            <h3>12 High-Value AI Prompts</h3>
+            <p>Ready-to-use prompts for stock screening, sector analysis, trade quality, and risk management.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Market & Sector Analysis</h3>
+            <p>Prompts that help you determine market direction and identify strong vs weak sectors.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Daily AI Trading Routine</h3>
+            <p>A simple, repeatable workflow you can use every day to stay disciplined and reduce overtrading.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU'LL LEARN -->
+    <section class="section">
+      <div class="container">
+        <h2>What You’ll Learn</h2>
+        <ul class="check-list">
+          <li>How to use AI to determine market direction</li>
+          <li>How to identify strong vs weak sectors</li>
+          <li>How to filter high-momentum stocks</li>
+          <li>How to avoid false breakouts & bad stocks</li>
+          <li>How to structure entries, stops, and targets</li>
+          <li>How to control risk in small accounts</li>
+          <li>How to stop overtrading & revenge trading</li>
+          <li>A daily AI trading workflow you can repeat</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="section muted">
+      <div class="container">
+        <h2>Who This Is For</h2>
+        <ul class="check-list">
+          <li>You trade US stocks, options, or crypto</li>
+          <li>You want clarity before entering trades</li>
+          <li>You use or want to use AI for trading</li>
+          <li>You trade with a small or mid-size account</li>
+        </ul>
+
+        <h2 style="margin-top: 36px;">Who This Is Not For</h2>
+        <ul class="check-list">
+          <li>Signal chasers</li>
+          <li>Get-rich-quick seekers</li>
+          <li>People looking for guaranteed profits</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">What Traders Are Saying</h2>
+
+        <div class="testimonial">
+          “I’ve tried multiple tools and screeners before, but this was the first time AI actually made sense for trading. The prompts force you to slow down, think clearly, and evaluate trades properly before entering. It helped me cut out impulsive trades and follow a repeatable process instead of emotions.”
+        </div>
+
+        <div class="testimonial">
+          “What I liked most is that this doesn’t promise quick profits. It teaches you how to use AI as a thinking partner, not a signal generator. The stock screening and risk prompts alone made my pre-market routine more structured and less stressful.”
+        </div>
+
+        <div class="testimonial">
+          “This guide completely changed how I approach trading. Instead of scanning randomly and second-guessing every setup, I now use AI to filter stocks with clear logic and discipline. Easily worth more than the price.”
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-box">
+          <div class="price-badge" style="margin-bottom: 16px;">
+            <span class="now">$19</span>
+          </div>
+          <h2 style="margin-bottom: 8px;">Stop guessing. Start filtering.</h2>
+          <p style="opacity: 0.8; margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto;">
+            One-time payment. Instant digital download. No subscription. No hidden fees.
+          </p>
+          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/N46B8WMDF5XUG" target="_blank" rel="noopener">
+            Get AI Stock Screener Prompts — $19
+          </a>
+          <p class="guarantee">Secure checkout via PayPal · Instant access after payment</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section class="section muted">
+      <div class="container">
+        <p style="font-size: 0.85rem; opacity: 0.65; max-width: 640px; line-height: 1.6;">
+          <strong>Important Disclaimer:</strong> This product is for educational purposes only. This is not financial advice. Trading involves risk. Past performance is not indicative of future results.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      © <span data-year></span> KD-ToolsClub.
+    </div>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    (function () {
+      const track = document.getElementById('sliderTrack');
+      const slides = track.children;
+      const total = slides.length;
+      let current = 0;
+
+      const dotsContainer = document.getElementById('sliderDots');
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+      const dots = dotsContainer.children;
+
+      function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.toggle('active', i === current);
+        }
+      }
+
+      document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+      setInterval(() => goTo(current + 1), 4000);
+    })();
+  </script>
+</body>
+</html>
