@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First $10K Month Freelance Accelerator — KD-ToolsClub</title>
+  <meta name="description" content="Go from $0 to $10K/month in 60 days. 50+ templates, scripts, and step-by-step training used by 500+ freelancers. 60-day money-back guarantee.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Monetag Ads -->
+  <script src="https://quge5.com/88/tag.min.js" data-zone="287318" async data-cfasync="false"></script>
+
+  <style>
+    .price-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: rgba(62, 207, 142, 0.12);
+      color: #3ecf8e;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .price-badge .now {
+      font-size: 1.35rem;
+    }
+
+    .hero-with-slider {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-with-slider {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: clamp(1.85rem, 4vw, 2.5rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: 1.05rem;
+      opacity: 0.75;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      max-width: 480px;
+    }
+
+    .hero-slider {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f1f5f9;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      z-index: 5;
+    }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin: 0 0 8px;
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px;
+      position: relative;
+      opacity: 0.9;
+    }
+    .check-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #3ecf8e;
+      font-weight: 700;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      background: rgba(91, 141, 239, 0.08);
+      border: 1px solid rgba(91, 141, 239, 0.2);
+      margin-top: 12px;
+    }
+    .cta-box .btn {
+      font-size: 1.05rem;
+      padding: 14px 32px;
+    }
+    .guarantee {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 14px;
+    }
+
+    .testimonial {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    .module {
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      background: rgba(255,255,255,0.02);
+    }
+    .module h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+    .module p {
+      margin: 0;
+      opacity: 0.8;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">KD</span>
+        <span>ToolsClub</span>
+      </a>
+      <button class="menu-toggle">☰</button>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../tools.html">Tools</a>
+        <a class="active" href="../kits.html">Kits</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="hero-with-slider">
+
+          <div class="hero-content">
+            <span class="eyebrow">60-DAY FREELANCE SYSTEM</span>
+            <div class="price-badge">
+              <span class="now">$199</span>
+            </div>
+            <h1>First $10K Month<br>Freelance Accelerator</h1>
+            <p>Go from sporadic gigs to a predictable $10K/month freelance business in 60 days. Used by 500+ freelancers worldwide.</p>
+            <ul class="check-list" style="margin-bottom: 24px;">
+              <li>Land your first $3K–$10K client in 30–60 days</li>
+              <li>Charge $100–$300/hour without feeling guilty</li>
+              <li>Get 3–5 qualified leads per week on autopilot</li>
+            </ul>
+            <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/VW3DRD68WBB3Y" target="_blank" rel="noopener">
+              Get Instant Access — $199
+            </a>
+          </div>
+
+          <div class="hero-slider" id="heroSlider">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide">
+                <img src="../assets/images/freelance-accelerator-1.png" alt="Course Dashboard">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/freelance-accelerator-2.png" alt="Templates Preview">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/freelance-accelerator-3.png" alt="Proposal Templates">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/freelance-accelerator-4.png" alt="Pricing Framework">
+              </div>
+            </div>
+            <button class="slider-btn prev" id="prevBtn" aria-label="Previous">‹</button>
+            <button class="slider-btn next" id="nextBtn" aria-label="Next">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 12px;">Freelancing shouldn’t feel this hard</h2>
+        <p style="max-width: 660px; opacity: 0.85; line-height: 1.6; margin-bottom: 16px;">
+          You wanted freedom. Instead you got inconsistent income, endless Upwork scrolling, clients who haggle your rates, and working 60+ hours for only $2K–$3K/month.
+        </p>
+        <p style="max-width: 660px; opacity: 0.85; line-height: 1.6;">
+          Most freelancers never get taught the business side. They learn the skill, but never learn how to find high-paying clients, charge what they’re worth, or build systems that scale.
+        </p>
+      </div>
+    </section>
+
+    <!-- WHAT'S INCLUDED -->
+    <section class="section muted">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">What’s Included</h2>
+        <p style="opacity: 0.8; margin-bottom: 28px;">8 complete modules + 50+ templates + bonuses valued at $1,200+</p>
+
+        <div class="module">
+          <h3>Module 1: Foundation & Niche Selection</h3>
+          <p>Pick a profitable niche and position yourself as a premium expert. Includes niche selection framework, UVP formula, and competitor analysis worksheet.</p>
+        </div>
+        <div class="module">
+          <h3>Module 2: Portfolio That Converts</h3>
+          <p>Build a portfolio that makes clients feel like they’re missing out. Includes 5 portfolio templates, case study formula, and portfolio audit checklist.</p>
+        </div>
+        <div class="module">
+          <h3>Module 3: Pricing Psychology & Package Design</h3>
+          <p>Charge $100–$300/hour or $3K–$10K/project without guilt. Value-based pricing calculator, 3-tier packages, and rate increase email templates.</p>
+        </div>
+        <div class="module">
+          <h3>Module 4: Client Acquisition Mastery</h3>
+          <p>Get 3–5 qualified leads per week. Cold email templates, LinkedIn DM scripts, Upwork proposal templates, and 30-day content calendar.</p>
+        </div>
+        <div class="module">
+          <h3>Module 5: Proposal & Pitch Templates That Win</h3>
+          <p>Close 50%+ of qualified proposals. 5 proposal templates, personalization checklist, and 3-email follow-up sequences.</p>
+        </div>
+        <div class="module">
+          <h3>Module 6: Sales Call Scripts & Objection Handling</h3>
+          <p>Close 60%+ of sales calls. Full word-for-word scripts, discovery questions, and objection handling scripts.</p>
+        </div>
+        <div class="module">
+          <h3>Module 7: Onboarding & Delivery Systems</h3>
+          <p>Professional onboarding that reduces scope creep. Welcome packet, questionnaires, timeline templates, and testimonial systems.</p>
+        </div>
+        <div class="module">
+          <h3>Module 8: Scaling to $10K/Month</h3>
+          <p>Clear roadmap to $10K and beyond. Retainer pitches, rate increase scripts, upsell frameworks, and hiring calculator.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BONUSES -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Plus 5 Bonuses (Valued at $1,200+)</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>50+ AI Prompts for Freelancers</h3>
+            <p>Proposal writing, content creation, client research, and follow-up email prompts.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Freelance Business Tracker</h3>
+            <p>Notion/Sheets tracker for income, client pipeline, projects, and time tracking.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Recorded Live Q&A Sessions</h3>
+            <p>3 hours of real student questions, case study breakdowns, and proposal reviews.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Private Community Access</h3>
+            <p>Peer support, weekly challenges, and monthly guest expert AMAs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="section muted">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Join 500+ Freelancers Who Hit $5K–$10K Months</h2>
+
+        <div class="testimonial">
+          “I went from $2K to $11K in 45 days. After using the pricing templates and cold email scripts, I landed a $6K project in week 3. This course paid for itself 50x over.”
+          <cite>— James T., Freelance Designer, London</cite>
+        </div>
+
+        <div class="testimonial">
+          “I’ve bought 5 freelance courses before. This is the only one with actual templates and scripts I could copy-paste. I used the proposal template and won a $4.5K project on my first try.”
+          <cite>— Maria G., Freelance Writer, Toronto</cite>
+        </div>
+
+        <div class="testimonial">
+          “The pricing module alone is worth $1,000. I raised my rates from $40 to $150/hour and didn’t lose a single client.”
+          <cite>— David L., Video Editor, Sydney</cite>
+        </div>
+
+        <div class="testimonial">
+          “I had no clients when I started. The cold email templates got me 3 replies in the first week. Now I’m at $8K/month working with US clients.”
+          <cite>— Priya S., Freelance VA</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 12px;">60-Day Money-Back Guarantee</h2>
+        <p style="max-width: 640px; opacity: 0.85; line-height: 1.6;">
+          Enroll, go through the modules, use the templates, and apply the strategies. If you don’t land at least one paying client or raise your rates by 50%+ within 60 days, just email us and we’ll refund every penny. No questions asked.
+        </p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-box">
+          <div class="price-badge" style="margin-bottom: 16px;">
+            <span class="now">$199</span>
+          </div>
+          <h2 style="margin-bottom: 8px;">Ready to Build Your $10K/Month Freelance Business?</h2>
+          <p style="opacity: 0.8; margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto;">
+            Instant digital access · Lifetime updates · 60-day money-back guarantee
+          </p>
+          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/VW3DRD68WBB3Y" target="_blank" rel="noopener">
+            Get Instant Access — $199
+          </a>
+          <p class="guarantee">Secure checkout via PayPal · Instant access after payment</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      © <span data-year></span> KD-ToolsClub.
+    </div>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    (function () {
+      const track = document.getElementById('sliderTrack');
+      const slides = track.children;
+      const total = slides.length;
+      let current = 0;
+
+      const dotsContainer = document.getElementById('sliderDots');
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+      const dots = dotsContainer.children;
+
+      function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.toggle('active', i === current);
+        }
+      }
+
+      document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+      setInterval(() => goTo(current + 1), 4000);
+    })();
+  </script>
+</body>
+</html>
