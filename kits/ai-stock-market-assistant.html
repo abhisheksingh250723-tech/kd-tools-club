@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Stock Market Assistant — KD-ToolsClub</title>
+  <meta name="description" content="The ultimate AI trading toolkit for US Stocks & Crypto. 75+ prompts, video lessons, screeners, Notion journal and lifetime updates.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Monetag Ads -->
+  <script src="https://quge5.com/88/tag.min.js" data-zone="287318" async data-cfasync="false"></script>
+
+  <style>
+    .price-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: rgba(62, 207, 142, 0.12);
+      color: #3ecf8e;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .price-badge .now {
+      font-size: 1.35rem;
+    }
+
+    .hero-with-slider {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-with-slider {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: clamp(1.9rem, 4vw, 2.55rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero-content p {
+      font-size: 1.05rem;
+      opacity: 0.75;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 480px;
+    }
+
+    .hero-slider {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f1f5f9;
+      aspect-ratio: 4 / 3;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      z-index: 5;
+    }
+    .slider-btn.prev { left: 14px; }
+    .slider-btn.next { right: 14px; }
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin: 0 0 8px;
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px;
+      position: relative;
+      opacity: 0.9;
+    }
+    .check-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #3ecf8e;
+      font-weight: 700;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 36px 24px;
+      border-radius: 16px;
+      background: rgba(91, 141, 239, 0.08);
+      border: 1px solid rgba(91, 141, 239, 0.2);
+      margin-top: 12px;
+    }
+    .cta-box .btn {
+      font-size: 1.05rem;
+      padding: 14px 32px;
+    }
+    .guarantee {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 14px;
+    }
+
+    .testimonial {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    .testimonial cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    .steps {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #5b8def;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">KD</span>
+        <span>ToolsClub</span>
+      </a>
+      <button class="menu-toggle">☰</button>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../tools.html">Tools</a>
+        <a class="active" href="../kits.html">Kits</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="hero-with-slider">
+
+          <div class="hero-content">
+            <span class="eyebrow">COMPLETE AI TRADING TOOLKIT</span>
+            <div class="price-badge">
+              <span class="now">$39</span>
+            </div>
+            <h1>AI Stock Market<br>Assistant</h1>
+            <p>The ultimate AI trading toolkit for US Stocks & Crypto. Master market sentiment and technical analysis with a complete plug-and-play system.</p>
+            <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/RW4L6RR9YAPX2" target="_blank" rel="noopener">
+              Get Instant Access — $39
+            </a>
+          </div>
+
+          <div class="hero-slider" id="heroSlider">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide">
+                <img src="../assets/images/ai-assistant-1.png" alt="AI Stock Market Assistant Cover">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-assistant-2.png" alt="AI Prompts Library">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-assistant-3.png" alt="Trading Dashboard">
+              </div>
+              <div class="slide">
+                <img src="../assets/images/ai-assistant-4.png" alt="Notion Trading Journal">
+              </div>
+            </div>
+            <button class="slider-btn prev" id="prevBtn" aria-label="Previous">‹</button>
+            <button class="slider-btn next" id="nextBtn" aria-label="Next">›</button>
+            <div class="slider-dots" id="sliderDots"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 12px;">Why smart traders are switching to AI-driven workflows</h2>
+        <p style="max-width: 660px; opacity: 0.85; line-height: 1.6;">
+          In today’s volatile market, traditional screeners and manual research aren’t enough. Professional traders now use Generative AI to filter noise and identify high-probability setups. 
+          The AI Stock Market Assistant is a complete operating system designed for retail traders in the USA, UK, and Canada.
+        </p>
+      </div>
+    </section>
+
+    <!-- WHAT'S INCLUDED -->
+    <section class="section muted">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">What’s Included</h2>
+        <p style="opacity: 0.8; margin-bottom: 28px;">A full plug-and-play trading automation stack — not just a course.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Core Video Lessons (2.5 Hours)</h3>
+            <p>Intro to AI & market trends, technical & sentiment analysis, live screener walkthrough, and AI-driven workflows.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Tools & Dashboards</h3>
+            <p>AI Stock Screener (Google Sheets), Notion Trading Journal, Weekly Market Analysis Framework, and real-time news setup.</p>
+          </div>
+          <div class="feature-card">
+            <h3>75+ Battle-Tested AI Prompts</h3>
+            <p>Prompt library for stock screening, risk management, sentiment analysis, plus a bonus crypto prompt bundle.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Execution & Planning</h3>
+            <p>AI trading execution plan, daily & weekly review templates, and workflow checklists you can follow every day.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Bonus Access</h3>
+            <p>Private community access, lifetime updates, and live coaching replay included.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Crypto Screener Included</h3>
+            <p>Works for Bitcoin, Ethereum and other major crypto pairs in addition to US stocks and options.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO USE -->
+    <section class="section">
+      <div class="container">
+        <h2>How to Use It (Step-by-Step)</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div><strong>Scan</strong> — Use the AI Stock Screener to find tickers with momentum.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div><strong>Analyze</strong> — Use the AI prompts to read market sentiment and news.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div><strong>Plan</strong> — Use the Risk Management Guide to set stop-loss and take-profit.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div><strong>Execute</strong> — Enter the trade with data-backed conviction.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div><strong>Review</strong> — Log the results in your Notion Trading Journal.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section muted">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Frequently Asked Questions</h2>
+
+        <div class="feature-card" style="margin-bottom: 16px;">
+          <h3>Does this work for Crypto and Forex?</h3>
+          <p>Yes. While optimized for the U.S. Stock Market, the prompts and workflow logic apply perfectly to Bitcoin, Ethereum, and Forex pairs.</p>
+        </div>
+
+        <div class="feature-card" style="margin-bottom: 16px;">
+          <h3>Do I need to know how to code?</h3>
+          <p>No. This is a no-code AI trading system. We use ChatGPT, Google Sheets, and Notion. If you can copy and paste, you can use this.</p>
+        </div>
+
+        <div class="feature-card" style="margin-bottom: 16px;">
+          <h3>Is this a signal service or a bot?</h3>
+          <p>No. We do not provide buy/sell alerts. We provide the AI tools and framework so you can make your own professional decisions.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Is it a one-time payment?</h3>
+          <p>Yes. You get lifetime access to all videos, prompts, and templates for a single payment of $39. No monthly subscriptions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Real Results from Traders</h2>
+
+        <div class="testimonial">
+          “I had the technical skills, but I lacked the discipline. This toolkit forced me to build a repeatable process. My random trades have dropped by 80%, and my PnL is finally reflecting that.”
+          <cite>— Derek, 35 (Swing Trader)</cite>
+        </div>
+
+        <div class="testimonial">
+          “I use the prompts to summarize news while I’m at my day job. By the time I sit down to trade, the AI has already done the heavy lifting. It’s like having a junior analyst.”
+          <cite>— Jason, 44 (Portfolio Investor)</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-box">
+          <div class="price-badge" style="margin-bottom: 16px;">
+            <span class="now">$39</span>
+          </div>
+          <h2 style="margin-bottom: 8px;">Stop Overtrading. Start Scaling.</h2>
+          <p style="opacity: 0.8; margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto;">
+            Instant access · One-time payment · Lifetime updates · Money-back guarantee
+          </p>
+          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/RW4L6RR9YAPX2" target="_blank" rel="noopener">
+            Get the AI Stock Market Assistant — $39
+          </a>
+          <p class="guarantee">Secure checkout via PayPal · Instant access after payment</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section class="section muted">
+      <div class="container">
+        <p style="font-size: 0.85rem; opacity: 0.65; max-width: 640px; line-height: 1.6;">
+          <strong>Disclaimer:</strong> This product is for educational purposes only. This is not financial advice. Trading involves risk. If it doesn’t level up your trading insights, email us – no questions asked.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      © <span data-year></span> KD-ToolsClub.
+    </div>
+  </footer>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    (function () {
+      const track = document.getElementById('sliderTrack');
+      const slides = track.children;
+      const total = slides.length;
+      let current = 0;
+
+      const dotsContainer = document.getElementById('sliderDots');
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+      const dots = dotsContainer.children;
+
+      function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.toggle('active', i === current);
+        }
+      }
+
+      document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+      setInterval(() => goTo(current + 1), 4000);
+    })();
+  </script>
+</body>
+</html>
